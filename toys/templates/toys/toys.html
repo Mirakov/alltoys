@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AllToys - dashboard</title>
+    </head>
+    <body>
+        <div>
+            All Toys
+            <br><hr>(Sayt test rejimida ishlayapti!)
+            <br>My Channel : t.me\IT_technologies_1
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td style="width: 100px"><a href="{% url 'toys:toys' %}">Toys</a></td>
+                    <td style="width: 100px"><a href="#">Users</a></td>
+                </tr>
+            </table>
+            <hr>
+            <table>
+                {% for toy in toys %}
+                    <tr>
+                        <td>{{ forloop.counter }}
+                        <td>{{ toy.name }}</td>
+                    </tr>
+                {% endfor %}
+        </div>
+
+
+
+    </body>
+</html>
