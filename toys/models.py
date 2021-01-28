@@ -4,12 +4,21 @@ class ActiveObjectsManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_active=True)
 
+
+class BaseModel(models.Model):
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        abstract = True
+
+
 class Address(models.Model):
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100, null=True, blank=True)
     zip_code = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)    
-class User(models.Model):
+
+class User(BaseModel):
     is_active = models.BooleanField(default=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, null=True, blank=True)
@@ -20,12 +29,12 @@ class User(models.Model):
     objects = models.Manager()
     active_objects = ActiveObjectsManager()
 
-class Tag(models.Model):
+class Tag(BaseModel):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
 
 
-class Toy(models.Model):
+class Toy(BaseModel):
     name = models.CharField(max_length=100)
     user = models.ForeignKey(User, related_name="toys", on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
